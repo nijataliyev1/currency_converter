@@ -33,14 +33,14 @@
                         <p>Mənim varımdır</p>
                     </div>
                     <div class="currencies">
-                        <button class="selected">RUB</button>
-                        <button>USD</button>
-                        <button>EUR</button>
-                        <button>AZN</button>
+                        <button class="rub">RUB</button>
+                        <button class="usd">USD</button>
+                        <button class="eur">EUR</button>
+                        <button class="try">TRY</button>
                     </div>
                     <div class="input">
-                        <input type="number" value="5000">
-                        <p><span>1 RUB</span> = <span>0.0135 USD</span></p>
+                        <input type="number">
+                        <p class="rate"></p>
                     </div>
                 </div>
                 <div class="calculator last">
@@ -48,19 +48,23 @@
                         <p>Almaq istəyirəm</p>
                     </div>
                     <div class="currencies">
-                        <button>RUB</button>
-                        <button class="selected">USD</button>
-                        <button>EUR</button>
-                        <button>AZN</button>
+                        <button class="rub">RUB</button>
+                        <button class="usd">USD</button>
+                        <button class="eur">EUR</button>
+                        <button class="try">TRY</button>
                     </div>
                     <div class="input">
-                        <input type="number" value="67.6685">
-                        <p><span>1 USD</span> = <span>73.8896 RUB</span></p>
+                        <input type="number">
+                        <p class="rate"><!-- <span>1 USD</span> = <span>73.8896 RUB</span> --></p>
                     </div>
                 </div>
             </div>
+            <div class="alert display-none">
+                <p>Oops! Bağlantı mövcud deyil</p>
+            </div>
         </div> 
     </main>
+    <script src="./app.js"></script>
 </body>
 
 </html>

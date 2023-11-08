@@ -111,6 +111,7 @@ main {
 .calculator .selected {
     background-color: #833AE0;
     color: white;
+    border-color: #833AE0;
 }
 
 .currencies button {
@@ -161,6 +162,18 @@ main {
 
 .input input:focus {
     outline: none;
+}
+
+.alert{
+    width: 100%;
+    background-color: #ED1C24;
+    border-radius: 3px;
+    color: white;
+    padding: 10px;
+}
+
+.display-none {
+    display: none;
 }
 
 input::-webkit-outer-spin-button,

@@ -190,7 +190,7 @@ getDatas().then(data => {
     })
 
     document.querySelector(".first input").addEventListener("keyup", (event) => {
-        calculators.changeLeftAmount(Number(event.target.value));
+        if (event.key != ".") calculators.changeLeftAmount(Number(event.target.value));
     })
 
     document.querySelector(".last input").addEventListener("keyup", (event) => {

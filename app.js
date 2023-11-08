@@ -88,33 +88,33 @@ class Calculators {
         }
     }
 
-    changeLeftCurrency(newCurrency) { 
+    changeLeftCurrency(newCurrency) {
         this.leftCurrency = newCurrency;
         this.left.setFrom(newCurrency);
         this.left.setAmount(this.toFrom(this.right.amount));
-        this.left.setRate(this.exchanges.getExchange(this.leftCurrency,this.rightCurrency));
+        this.left.setRate(this.exchanges.getExchange(this.leftCurrency, this.rightCurrency));
 
         this.right.setTo(this.leftCurrency);
-        this.right.setRate(this.exchanges.getExchange(this.rightCurrency,this.leftCurrency));
+        this.right.setRate(this.exchanges.getExchange(this.rightCurrency, this.leftCurrency));
         this.left.show();
         this.right.show();
     }
 
-    changeRightCurrency(newCurrency) { 
+    changeRightCurrency(newCurrency) {
         this.rightCurrency = newCurrency;
         this.right.setFrom(newCurrency);
         this.right.setAmount(this.left.amount * this.exchanges.getExchange(this.leftCurrency, this.rightCurrency));
-        this.right.setRate(this.exchanges.getExchange(this.rightCurrency,this.leftCurrency));
+        this.right.setRate(this.exchanges.getExchange(this.rightCurrency, this.leftCurrency));
 
         this.left.setTo(this.rightCurrency);
-        this.left.setRate(this.exchanges.getExchange(this.leftCurrency,this.rightCurrency));
+        this.left.setRate(this.exchanges.getExchange(this.leftCurrency, this.rightCurrency));
         this.left.show();
         this.right.show();
     }
 
     changeLeftAmount(amount) {
         this.left.setAmount(amount);
-        this.right.setAmount(amount * this.exchanges.getExchange(this.leftCurrency,this.rightCurrency));
+        this.right.setAmount(amount * this.exchanges.getExchange(this.leftCurrency, this.rightCurrency));
 
         this.left.show();
         this.right.show();
@@ -155,8 +155,8 @@ getDatas().then(data => {
         }
     }
 
-    let calculators = new Calculators("RUB","USD",exchanges);
-    
+    let calculators = new Calculators("RUB", "USD", exchanges);
+
     document.querySelector(".first .rub").addEventListener("click", () => {
         calculators.changeLeftCurrency("RUB");
     })
@@ -190,14 +190,28 @@ getDatas().then(data => {
     })
 
     document.querySelector(".first input").addEventListener("keyup", (event) => {
-        if (event.key != ".") calculators.changeLeftAmount(Number(event.target.value));
+        if (event.target.value.split("")[0] == "." || event.target.value.split("")[0] == "-") {
+            let arr = event.target.value.split("");
+            arr.shift();
+            event.target.value = Number(arr.join(""));
+        }
+        if (event.key != ".") {
+            calculators.changeLeftAmount(Number(event.target.value))
+        };
     })
 
     document.querySelector(".last input").addEventListener("keyup", (event) => {
-        if (event.key != ".") calculators.changeRightAmount(Number(event.target.value));
+        if (event.target.value.split("")[0] == "." || event.target.value.split("")[0] == "-") {
+            let arr = event.target.value.split("");
+            arr.shift();
+            event.target.value = Number(arr.join(""));
+        }
+        if (event.key != ".") {
+            calculators.changeRightAmount(Number(event.target.value));
+        }
     })
 
-    
+
 
 
 

@@ -155,7 +155,7 @@ getDatas().then(data => {
         }
     }
 
-    let calculators = new Calculators("TRY","USD",exchanges);
+    let calculators = new Calculators("RUB","USD",exchanges);
     
     document.querySelector(".first .rub").addEventListener("click", () => {
         calculators.changeLeftCurrency("RUB");

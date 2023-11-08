@@ -194,7 +194,7 @@ getDatas().then(data => {
     })
 
     document.querySelector(".last input").addEventListener("keyup", (event) => {
-        calculators.changeRightAmount(Number(event.target.value));
+        if (event.key != ".") calculators.changeRightAmount(Number(event.target.value));
     })
 
     

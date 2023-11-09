@@ -8,6 +8,7 @@ class Calculator {
             this.setTo(to);
             this.setAmount(amount);
             this.setRate(rate);
+            this.amountConst = false;
         }
         else {
             console.error("Invalid name (line: 51)");
@@ -65,7 +66,9 @@ class Calculator {
                 item.classList.remove("selected");
             }
         })
-        input.value = this.amount;
+        if (!this.amountConst) {
+            input.value = this.amount;
+        }
         buttom.innerHTML = `<span>1 ${this.from}</span> = <span>${this.rate} ${this.to}</span>`;
 
     }
@@ -93,13 +96,13 @@ class Calculators {
         this.left.setFrom(newCurrency);
         this.left.setAmount(this.toFrom(this.right.amount));
         this.left.setRate(this.exchanges.getExchange(this.leftCurrency, this.rightCurrency));
-
+        
         this.right.setTo(this.leftCurrency);
         this.right.setRate(this.exchanges.getExchange(this.rightCurrency, this.leftCurrency));
         this.left.show();
         this.right.show();
     }
-
+    
     changeRightCurrency(newCurrency) {
         this.rightCurrency = newCurrency;
         this.right.setFrom(newCurrency);
@@ -111,21 +114,25 @@ class Calculators {
         this.left.show();
         this.right.show();
     }
-
+    
     changeLeftAmount(amount) {
+        this.left.amountConst = true;
         this.left.setAmount(amount);
         this.right.setAmount(amount * this.exchanges.getExchange(this.leftCurrency, this.rightCurrency));
 
         this.left.show();
         this.right.show();
+        this.left.amountConst = false;
     }
 
     changeRightAmount(amount) {
+        this.right.amountConst = true;
         this.right.setAmount(amount);
         this.left.setAmount(this.toFrom(amount));
 
         this.left.show();
         this.right.show();
+        this.right.amountConst = false;
     }
 
     toFrom(amount) {
@@ -210,10 +217,6 @@ getDatas().then(data => {
             calculators.changeRightAmount(Number(event.target.value));
         }
     })
-
-
-
-
 
 }).catch(err => {
     document.querySelector(".alert").classList.remove("display-none");

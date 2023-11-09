@@ -1,4 +1,6 @@
-let currencies = ["RUB", "USD", "EUR", "TRY"];
+let currencies = ["RUB", "USD", "EUR", "AZN"];
+const apiKey = "fca_live_9LBhYW4At6eqnhTd5lV2PKmRkmZThVwmRqXvrWqk"
+
 
 class Calculator {
     constructor(from, to, amount, rate, name) {
@@ -143,15 +145,19 @@ class Calculators {
 
 
 const getDatas = async () => {
-    const response = await fetch(`https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_9LBhYW4At6eqnhTd5lV2PKmRkmZThVwmRqXvrWqk&currencies=${currencies.join("%2C")}`);
+    const response = await fetch(`https://api.currencyapi.com/v3/latest?apikey=${apiKey}&currencies=${currencies.join("%2C")}`);
     const data = await response.json();
 
     return data;
 }
 
 getDatas().then(data => {
+    let usdExchanges = {};
+    currencies.forEach(item => {
+        usdExchanges[item] = data.data[item].value;
+    })
     let exchanges = {
-        usdExchanges: data.data,
+        usdExchanges: usdExchanges,
         getExchange(from, to) {
             if (currencies.indexOf(from) != -1 && currencies.indexOf(to) != -1) {
                 return this.usdExchanges[to] / this.usdExchanges[from];
@@ -176,8 +182,8 @@ getDatas().then(data => {
         calculators.changeLeftCurrency("EUR");
     })
 
-    document.querySelector(".first .try").addEventListener("click", () => {
-        calculators.changeLeftCurrency("TRY");
+    document.querySelector(".first .azn").addEventListener("click", () => {
+        calculators.changeLeftCurrency("AZN");
     })
 
     document.querySelector(".last .rub").addEventListener("click", () => {
@@ -192,8 +198,8 @@ getDatas().then(data => {
         calculators.changeRightCurrency("EUR");
     })
 
-    document.querySelector(".last .try").addEventListener("click", () => {
-        calculators.changeRightCurrency("TRY");
+    document.querySelector(".last .azn").addEventListener("click", () => {
+        calculators.changeRightCurrency("AZN");
     })
 
     document.querySelector(".first input").addEventListener("keyup", (event) => {
